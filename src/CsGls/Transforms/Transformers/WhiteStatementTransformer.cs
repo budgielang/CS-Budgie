@@ -9,10 +9,12 @@ namespace CsGls.Transforms.Transformers
 {
     public class WhileStatementTransformer : INodeTransformer<WhileStatementSyntax>
     {
+        private readonly SemanticModel Model;
         private readonly TransformerRouter Router;
 
-        public WhileStatementTransformer(TransformerRouter router)
+        public WhileStatementTransformer(SemanticModel model, TransformerRouter router)
         {
+            this.Model = model;
             this.Router = router;
         }
 

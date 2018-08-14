@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CsGls.Transforms.Results;
+using CsGls.Transforms.Routing;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,26 +25,21 @@ namespace CsGls.Transforms
                 return new Complaint(exception.Message, range);
             }
 
+            var router = CreateTransformerRouter(tree, fileName);
+            var root = (CompilationUnitSyntax)tree.GetRoot();
+
+            return router.RouteNodes(root.ChildNodes(), root);
+        }
+
+        private static TransformerRouter CreateTransformerRouter(SyntaxTree tree, string fileName)
+        {
             var compilation = CSharpCompilation.Create(fileName)
                 .AddReferences(
                     MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
                 .AddSyntaxTrees(tree);
             var model = compilation.GetSemanticModel(tree);
-            var root = (CompilationUnitSyntax)tree.GetRoot();
 
-            var transforms = new List<ITransformation>();
-
-            foreach (var childNode in root.ChildNodes())
-            {
-                transforms.Add(TransformationService.TransformNode(childNode, model));
-            }
-
-            return new ChildTransformations(transforms.ToArray(), range);
-        }
-
-        private static ITransformation TransformNode(SyntaxNode node, SemanticModel model)
-        {
-
+            return new TransformerRouter(model);
         }
     }
 }

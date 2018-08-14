@@ -1,3 +1,5 @@
+using Microsoft.CodeAnalysis;
+
 namespace CsGls.Transforms.Results
 {
     /// <summary>
@@ -14,5 +16,8 @@ namespace CsGls.Transforms.Results
         public int End { get; }
 
         public int Start { get; }
+
+        public static Range ForNode(SyntaxNode node)
+            => new Range(node.SpanStart, node.Span.End);
     }
 }

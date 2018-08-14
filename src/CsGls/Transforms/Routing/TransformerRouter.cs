@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using CsGls.Transforms.Results;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,9 +17,9 @@ namespace CsGls.Transforms.Routing
         /// </summary>
         private readonly TransformersBag TransformersBag;
 
-        public TransformerRouter()
+        public TransformerRouter(SemanticModel model)
         {
-            this.TransformersBag = new TransformersBag(this);
+            this.TransformersBag = new TransformersBag(model, this);
         }
 
         /// <summary>
@@ -36,7 +38,29 @@ namespace CsGls.Transforms.Routing
                     return this.TransformersBag.WhileStatement.Value.VisitNode((WhileStatementSyntax)node);
             }
 
-            return new Complaint($"Unsupported node kind: {kind}", new Range(node.SpanStart, node.Span.End));
+            return new Complaint($"Unsupported node kind: {kind}", Range.ForNode(node));
+        }
+
+        public ITransformation RouteNodes(IEnumerable<SyntaxNode> nodes, SyntaxNode parent)
+        {
+            var range = Range.ForNode(parent);
+            var start = int.MaxValue;
+            var end = int.MinValue;
+            var transformations = new List<ITransformation>();
+
+            foreach (var node in nodes)
+            {
+                var transformation = this.RouteNode(node);
+                start = Math.Min(start, transformation.Range.Start);
+                end = Math.Max(start, transformation.Range.End);
+                transformations.Add(this.RouteNode(node));
+            }
+
+            range = start == int.MaxValue
+                ? Range.ForNode(parent)
+                : new Range(start, end);
+
+            return new ChildTransformations(transformations.ToArray(), range);
         }
     }
 }
