@@ -40,6 +40,13 @@ namespace CsGls.Transforms.Results
             => nodes.Length == 0
                 ? throw new ArgumentException("No nodes provided.")
                 : new Range(nodes[0].SpanStart, nodes[1].Span.End);
-        
+
+        /// <summary>
+        /// Generates a range that spans across a token.
+        /// </summary>
+        /// <param name="nodes">Node to span a range across.</param>
+        public static Range ForToken(SyntaxToken token)
+            => new Range(token.SpanStart, token.Span.End);
+
     }
 }

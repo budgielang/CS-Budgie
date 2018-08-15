@@ -1,3 +1,5 @@
+using Microsoft.CodeAnalysis;
+
 namespace CsGls.Transforms.Results
 {
     /// <summary>
@@ -23,5 +25,12 @@ namespace CsGls.Transforms.Results
         /// </summary>
         /// <returns>Accumulated transformation as a string.</returns>
         public string GenerateResult() => this.Message;
+
+        /// <summary>
+        /// Creates a complaint for a node with unsupported syntax.
+        /// </summary>
+        /// <param name="node">Node with unsupported syntax.</param>
+        public static Complaint ForUnsupportedNode(SyntaxNode node)
+            => new Complaint($"Unsupported node syntax kind: {node.Kind()}", Range.ForNode(node));
     }
 }

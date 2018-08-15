@@ -25,13 +25,13 @@ namespace CsGls.Transforms
                 return new Complaint(exception.Message, range);
             }
 
-            var router = CreateTransformerRouter(tree, fileName);
+            var router = CreateTransformerRouter(fileName, tree);
             var root = (CompilationUnitSyntax)tree.GetRoot();
 
             return router.RouteNodes(root.ChildNodes(), root);
         }
 
-        private static TransformerRouter CreateTransformerRouter(SyntaxTree tree, string fileName)
+        private static TransformerRouter CreateTransformerRouter(string fileName, SyntaxTree tree)
         {
             var compilation = CSharpCompilation.Create(fileName)
                 .AddReferences(
@@ -39,7 +39,7 @@ namespace CsGls.Transforms
                 .AddSyntaxTrees(tree);
             var model = compilation.GetSemanticModel(tree);
 
-            return new TransformerRouter(model);
+            return new TransformerRouter(fileName, model);
         }
     }
 }

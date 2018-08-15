@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CsGls.GlsInternals;
 using CsGls.Transforms.Results;
 using CsGls.Transforms.Routing;
 using CsGls.Transforms.Transformers;
@@ -20,7 +21,26 @@ namespace CsGls.Transforms.Transformers
 
         public ITransformation VisitNode(IfStatementSyntax node)
         {
-            throw new System.NotImplementedException();
+            var transformations = new List<ITransformation>();
+
+            if (node.Else != null)
+            {
+                transformations.Add(this.Router.RouteNode(node.Else));
+            }
+
+            transformations.Add(new CommandTransformation(CommandNames.IfEnd, Range.AfterNode(node)));
+
+            return new ChildTransformations(
+                new ITransformation[]
+                {
+                    new CommandTransformation(
+                        CommandNames.IfStart,
+                        Range.ForNode(node.Condition),
+                        this.Router.RouteNode(node.Condition)),
+                    this.Router.RouteNode(node.Statement),
+                },
+                Range.ForNode(node)
+            );
         }
     }
 }

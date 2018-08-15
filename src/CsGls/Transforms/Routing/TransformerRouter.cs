@@ -17,9 +17,9 @@ namespace CsGls.Transforms.Routing
         /// </summary>
         private readonly TransformersBag TransformersBag;
 
-        public TransformerRouter(SemanticModel model)
+        public TransformerRouter(string fileName, SemanticModel model)
         {
-            this.TransformersBag = new TransformersBag(model, this);
+            this.TransformersBag = new TransformersBag(fileName, model, this);
         }
 
         /// <summary>
