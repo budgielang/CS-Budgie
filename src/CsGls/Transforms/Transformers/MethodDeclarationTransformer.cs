@@ -20,7 +20,7 @@ namespace CsGls.Transforms.Transformers
 
         public ITransformation VisitNode(MethodDeclarationSyntax node)
         {
-            throw new System.NotImplementedException();
+            return Complaint.ForUnsupportedNode(node);
         }
     }
 }

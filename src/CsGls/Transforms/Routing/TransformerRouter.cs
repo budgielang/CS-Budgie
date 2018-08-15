@@ -30,15 +30,40 @@ namespace CsGls.Transforms.Routing
         /// <returns></returns>
         public ITransformation RouteNode(SyntaxNode node)
         {
-            var kind = node.Kind();
-
-            switch (kind)
+            switch (node.Kind())
             {
+                case SyntaxKind.AddExpression:
+                case SyntaxKind.SubtractExpression:
+                case SyntaxKind.MultiplyExpression:
+                case SyntaxKind.DivideAssignmentExpression:
+                case SyntaxKind.LessThanExpression:
+                case SyntaxKind.EqualsExpression:
+                case SyntaxKind.GreaterThanExpression:
+                    return this.TransformersBag.AssignmentExpression.Value.VisitNode((AssignmentExpressionSyntax)node);
+
+                case SyntaxKind.ClassDeclaration:
+                    return this.TransformersBag.ClassDeclaration.Value.VisitNode((ClassDeclarationSyntax)node);
+
+                case SyntaxKind.ElseClause:
+                    return this.TransformersBag.ElseClause.Value.VisitNode((ElseClauseSyntax)node);
+
+                case SyntaxKind.IfStatement:
+                    return this.TransformersBag.IfStatement.Value.VisitNode((IfStatementSyntax)node);
+
+                case SyntaxKind.InvocationExpression:
+                    return this.TransformersBag.InvocationExpression.Value.VisitNode((InvocationExpressionSyntax)node);
+
+                case SyntaxKind.MethodDeclaration:
+                    return this.TransformersBag.MethodDeclaration.Value.VisitNode((MethodDeclarationSyntax)node);
+
+                case SyntaxKind.NamespaceDeclaration:
+                    return this.TransformersBag.NamespaceDeclaration.Value.VisitNode((NamespaceDeclarationSyntax)node);
+
                 case SyntaxKind.WhileStatement:
                     return this.TransformersBag.WhileStatement.Value.VisitNode((WhileStatementSyntax)node);
             }
 
-            return new Complaint($"Unsupported node kind: {kind}", Range.ForNode(node));
+            return Complaint.ForUnsupportedNode(node);
         }
 
         public ITransformation RouteNodes(IEnumerable<SyntaxNode> nodes, SyntaxNode parent)

@@ -9,15 +9,15 @@ namespace CsGls.Transforms.Routing
     /// </summary>
     public class TransformersBag
     {
-        private Lazy<AssignmentExpressionTransformer> AssignmentExpression { get; }
-        private Lazy<ClassDeclarationTransformer> ClassDeclaration { get; }
-        private Lazy<ElseClauseTransformer> ElseClause { get; }
-        private Lazy<IfStatementTransformer> IfStatement { get; }
-        private Lazy<InvocationExpressionTransformer> InvocationExpression { get; }
-        private Lazy<MethodDeclarationTransformer> MethodDeclaration { get; }
-        private Lazy<NamespaceDeclarationTransformer> NamespaceDeclaration { get; }
-        private Lazy<PassThroughTransformer> PassThrough { get; }
-        private Lazy<WhileStatementTransformer> WhileStatement { get; }
+        public Lazy<AssignmentExpressionTransformer> AssignmentExpression { get; }
+        public Lazy<ClassDeclarationTransformer> ClassDeclaration { get; }
+        public Lazy<ElseClauseTransformer> ElseClause { get; }
+        public Lazy<IfStatementTransformer> IfStatement { get; }
+        public Lazy<InvocationExpressionTransformer> InvocationExpression { get; }
+        public Lazy<MethodDeclarationTransformer> MethodDeclaration { get; }
+        public Lazy<NamespaceDeclarationTransformer> NamespaceDeclaration { get; }
+        public Lazy<PassThroughTransformer> PassThrough { get; }
+        public Lazy<WhileStatementTransformer> WhileStatement { get; }
 
         public TransformersBag(string fileName, SemanticModel model, TransformerRouter router)
         {

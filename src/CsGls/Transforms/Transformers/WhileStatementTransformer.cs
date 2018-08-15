@@ -37,8 +37,6 @@ namespace CsGls.Transforms.Transformers
                 },
                 Range.ForNode(node)
             );
-
-            throw new System.NotImplementedException();
         }
     }
 }

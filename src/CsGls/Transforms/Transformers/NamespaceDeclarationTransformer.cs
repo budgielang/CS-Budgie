@@ -46,7 +46,7 @@ namespace CsGls.Transforms.Transformers
 
             foreach (var rawParameter in rawParameters)
             {
-                parameters.Add(new StringTransformation(rawParameter, new Range(startIndex, rawParameter.Length));
+                parameters.Add(new StringTransformation(rawParameter, new Range(startIndex, rawParameter.Length)));
                 startIndex += rawParameter.Length + 1;
             }
 
