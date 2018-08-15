@@ -5,12 +5,12 @@ namespace CsGls.Transforms.Results
     /// </summary>
     public class StringTransformation : ITransformation
     {
-        private readonly string Contents;
-
         /// <summary>
         /// Character range this transformation result applies to.
         /// </summary>
         public Range Range { get; }
+
+        private string Contents { get; }
 
         public StringTransformation(string contents, Range range)
         {
