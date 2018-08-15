@@ -26,18 +26,18 @@ namespace CsGls
             }
 
             var router = CreateTransformerRouter(fileName, tree);
-            var root = (CompilationUnitSyntax)tree.GetRoot();
+            var syntaxTree = (CompilationUnitSyntax)tree.GetRoot();
 
-            return router.RouteNodes(root.ChildNodes(), root);
+            return router.RouteNodes(syntaxTree.ChildNodes(), syntaxTree);
         }
 
-        private static TransformerRouter CreateTransformerRouter(string fileName, SyntaxTree tree)
+        private static TransformerRouter CreateTransformerRouter(string fileName, SyntaxTree syntaxTree)
         {
             var compilation = CSharpCompilation.Create(fileName)
                 .AddReferences(
                     MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
-                .AddSyntaxTrees(tree);
-            var model = compilation.GetSemanticModel(tree);
+                .AddSyntaxTrees(syntaxTree);
+            var model = compilation.GetSemanticModel(syntaxTree);
 
             return new TransformerRouter(fileName, model);
         }
