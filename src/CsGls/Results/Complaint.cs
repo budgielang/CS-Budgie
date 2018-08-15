@@ -1,7 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace CsGls.Transforms.Results
+namespace CsGls.Results
 {
     /// <summary>
     /// Source file segment that couldn't be transformed.

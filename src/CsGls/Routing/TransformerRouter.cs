@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using CsGls.Transforms.Results;
+using CsGls.Results;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace CsGls.Transforms.Routing
+namespace CsGls.Routing
 {
     /// <summary>
     /// Routes syntax node visits through the appropriate transformers. 

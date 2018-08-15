@@ -1,4 +1,4 @@
-namespace CsGls.Transforms.Results
+namespace CsGls.Results
 {
     /// <summary>
     /// Description of how a range of source file is transformed.

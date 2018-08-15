@@ -1,4 +1,4 @@
-namespace CsGls.Transforms.Results
+namespace CsGls.Results
 {
     /// <summary>
     /// Raw string generated from a source file.

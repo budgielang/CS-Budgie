@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CsGls.Transforms.Results;
-using CsGls.Transforms.Routing;
+using CsGls.Results;
+using CsGls.Routing;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace CsGls.Transforms
+namespace CsGls
 {
     public class TransformationService
     {

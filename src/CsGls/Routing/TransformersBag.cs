@@ -1,8 +1,8 @@
 using System;
-using CsGls.Transforms.Transformers;
+using CsGls.Transformers;
 using Microsoft.CodeAnalysis;
 
-namespace CsGls.Transforms.Routing
+namespace CsGls.Routing
 {
     /// <summary>
     /// Transformers for supported syntax node kinds.

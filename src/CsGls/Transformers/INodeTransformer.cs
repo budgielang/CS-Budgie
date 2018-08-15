@@ -1,7 +1,7 @@
-using CsGls.Transforms.Results;
+using CsGls.Results;
 using Microsoft.CodeAnalysis;
 
-namespace CsGls.Transforms.Transformers
+namespace CsGls.Transformers
 {
     /// <summary>
     /// Transforms a type of node to <see href="ITransformation" />s.

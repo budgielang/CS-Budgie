@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace CsGls.Transforms.Results
+namespace CsGls.Results
 {
     /// <summary>
     /// Output transformed into a GLS command.

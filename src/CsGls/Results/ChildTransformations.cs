@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace CsGls.Transforms.Results
+namespace CsGls.Results
 {
     /// <summary>
     /// Multiple transformations in series.

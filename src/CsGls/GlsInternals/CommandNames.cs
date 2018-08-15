@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using CsGls.Transforms.Results;
-using CsGls.Transforms.Routing;
-using CsGls.Transforms.Transformers;
+using CsGls.Results;
+using CsGls.Routing;
+using CsGls.Transformers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 

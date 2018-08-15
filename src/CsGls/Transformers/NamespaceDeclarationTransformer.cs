@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CsGls.GlsInternals;
-using CsGls.Transforms.Results;
-using CsGls.Transforms.Routing;
-using CsGls.Transforms.Transformers;
+using CsGls.Results;
+using CsGls.Routing;
+using CsGls.Transformers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace CsGls.Transforms.Transformers
+namespace CsGls.Transformers
 {
     public class NamespaceDeclarationTransformer : INodeTransformer<NamespaceDeclarationSyntax>
     {
