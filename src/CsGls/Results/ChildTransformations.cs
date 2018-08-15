@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Text;
 
 namespace CsGls.Results
@@ -29,14 +31,12 @@ namespace CsGls.Results
         /// <returns>Accumulated transformation as a string.</returns>
         public string GenerateResult()
         {
-            var stringBuilder = new StringBuilder();
-
-            foreach (var child in this.Children)
-            {
-                stringBuilder.Append(child.GenerateResult());
-            }
-
-            return stringBuilder.ToString();
+            return string.Join(
+                Environment.NewLine,
+                this.Children
+                    .Select(child => child.GenerateResult()
+                )
+            );
         }
     }
 }

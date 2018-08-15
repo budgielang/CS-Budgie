@@ -26,7 +26,11 @@ namespace CsGls.Transformers
             return new ChildTransformations(
                 new ITransformation[]
                 {
-                    new CommandTransformation(CommandNames.ClassStart, Range.ForToken(node.Keyword)),
+                    new CommandTransformation(
+                        CommandNames.ClassStart,
+                        Range.ForToken(node.Keyword),
+                        new StringTransformation(node.Identifier.Text, Range.ForToken(node.Identifier))
+                    ),
                     this.Router.RouteNodes(node.Members, node),
                     new CommandTransformation(CommandNames.ClassEnd, Range.AfterNode(node))
                 },
