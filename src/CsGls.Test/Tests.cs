@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xunit;
 using CsGls;
+using CsGls.Results;
 
 namespace CsGls.Test
 {
@@ -16,11 +17,15 @@ namespace CsGls.Test
         public void Integration(string directoryName)
         {
             // Arrange
-            var source = File.ReadAllText(Path.Combine(directoryName, "Source.cs"));
+            var sourceText = File.ReadAllText(Path.Combine(directoryName, "Source.cs"));
             var expected = File.ReadAllText(Path.Combine(directoryName, "Expected.gls"));
 
             // Act
-            var actual = TransformationService.TransformFile("Source.cs", source).GenerateResult();
+            var transformation = TransformationService.TransformFile("Source.cs", sourceText);
+            var actual = string.Join(
+                Environment.NewLine,
+                TransformationPrinter.Print(sourceText, transformation)
+            );
 
             // Assert
             #pragma warning disable xUnit2006 // The diffs are better from <string>

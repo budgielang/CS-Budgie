@@ -9,11 +9,5 @@ namespace CsGls.Results
         /// Character range this transformation result applies to.
         /// </summary>
         Range Range { get; }
-
-        /// <summary>
-        /// Accumulates the converted transformation into a result string.
-        /// </summary>
-        /// <returns>Accumulated transformation as a string.</returns>
-        string GenerateResult();
     }
 }

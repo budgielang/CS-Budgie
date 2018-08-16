@@ -21,11 +21,7 @@ namespace CsGls.Results
             this.Range = range;
         }
 
-        /// <summary>
-        /// Accumulates the converted transformation into a result string.
-        /// </summary>
-        /// <returns>Accumulated transformation as a string.</returns>
-        public string GenerateResult() => this.Message;
+        public override string ToString() => this.Message;
 
         /// <summary>
         /// Creates a complaint for a node with unsupported syntax.

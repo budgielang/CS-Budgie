@@ -18,10 +18,6 @@ namespace CsGls.Results
             this.Range = range;
         }
 
-        /// <summary>
-        /// Accumulates the converted transformation into a result string.
-        /// </summary>
-        /// <returns>Accumulated transformation as a string.</returns>
-        public string GenerateResult() => this.Contents;
+        public override string ToString() => this.Contents;
     }
 }

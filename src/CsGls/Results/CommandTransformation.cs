@@ -29,11 +29,7 @@ namespace CsGls.Results
             this.Parameters = parameters;
         }
 
-        /// <summary>
-        /// Accumulates the converted transformation into a result string.
-        /// </summary>
-        /// <returns>Accumulated transformation as a string.</returns>
-        public string GenerateResult()
+        public override string ToString()
         {
             if (this.Parameters.Length == 0)
             {
@@ -48,7 +44,7 @@ namespace CsGls.Results
             // TODO: actually format these as per GlsLine.ts
             return string.Join(
                 " : ",
-                this.Parameters.Select(parameter => parameter.GenerateResult()));
+                this.Parameters.Select(parameter => parameter.ToString()));
         }
     }
 }

@@ -9,6 +9,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls
 {
+    /// <summary>
+    /// Transforms C# files to their equivalent GLS syntax transformations.
+    /// </summary>
     public class TransformationService
     {
         public static ITransformation TransformFile(string fileName, string fileContents)
