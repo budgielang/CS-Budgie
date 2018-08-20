@@ -1,4 +1,3 @@
-//
 class Case
 {
     public void Test()
@@ -11,4 +10,3 @@ class Case
         }
     }
 }
-//

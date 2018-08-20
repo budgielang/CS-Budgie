@@ -1,6 +1,10 @@
-while start : true
-while end
+class start : Case
+    member function declare start : public Test void
+        while start : true
+        while end
 
-while start : false
-break
-while end
+        while start : false
+            break
+        while end
+    member function declare end
+class end

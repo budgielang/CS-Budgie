@@ -1,4 +1,3 @@
-//
 class Abc {}
 
 class Def : Abc { }
@@ -16,4 +15,3 @@ abstract class Qrs : Abc { }
 abstract class Tuv : IHij { }
 
 abstract class Wxy : Efg, IHij { }
-//
