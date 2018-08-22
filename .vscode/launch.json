@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Cli/bin/Debug/netcoreapp2.1/Cli.dll",
+            "program": "${workspaceFolder}/src/CsGls/bin/Debug/netcoreapp2.1/CsGls.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Cli",
+            "cwd": "${workspaceFolder}/src/CsGls",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

@@ -10,13 +10,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class NamespaceDeclarationTransformer : INodeTransformer<NamespaceDeclarationSyntax>
+    public class NamespaceDeclarationVisitor : INodeVisitor<NamespaceDeclarationSyntax>
     {
         private readonly string FileName;
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public NamespaceDeclarationTransformer(string fileName, SemanticModel model, TransformerRouter router)
+        public NamespaceDeclarationVisitor(string fileName, SemanticModel model, NodeVisitRouter router)
         {
             this.FileName = fileName;
             this.Model = model;
@@ -32,7 +32,7 @@ namespace CsGls.Transformers
                         Range.ForNode(node.Name),
                         this.CreateParametersForName(node.Name)
                     ),
-                    this.Router.RouteNodes(node.Members, node),
+                    this.Router.RecurseIntoNodes(node.Members, node),
                     new CommandTransformation(CommandNames.FileEnd, Range.AfterNode(node))
                 },
                 Range.ForNode(node)

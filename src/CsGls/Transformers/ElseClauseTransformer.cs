@@ -8,12 +8,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class ElseClauseTransformer : INodeTransformer<ElseClauseSyntax>
+    public class ElseClauseVisitor : INodeVisitor<ElseClauseSyntax>
     {
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public ElseClauseTransformer(SemanticModel model, TransformerRouter router)
+        public ElseClauseVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;
@@ -33,7 +33,7 @@ namespace CsGls.Transformers
                     new CommandTransformation(
                         CommandNames.ElseIfStart,
                         Range.ForNode(node.Statement)),
-                    this.Router.RouteNode(node.Statement)
+                    this.Router.RecurseIntoNode(node.Statement)
                 },
                 Range.ForNode(node)
             );
@@ -45,7 +45,7 @@ namespace CsGls.Transformers
                     new CommandTransformation(
                         CommandNames.ElseStart,
                         Range.ForNode(node.Statement)),
-                    this.Router.RouteNode(node.Statement)
+                    this.Router.RecurseIntoNode(node.Statement)
                 },
                 Range.ForNode(node)
             );

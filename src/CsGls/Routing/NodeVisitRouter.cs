@@ -10,16 +10,16 @@ namespace CsGls.Routing
     /// <summary>
     /// Routes syntax node visits through the appropriate transformers. 
     /// </summary>
-    public class TransformerRouter
+    public class NodeVisitRouter
     {
         /// <summary>
         /// Transformers for supported syntax node kinds.
         /// </summary>
-        private readonly TransformersBag TransformersBag;
+        private readonly VisitorsBag TransformersBag;
 
-        public TransformerRouter(string fileName, SemanticModel model)
+        public NodeVisitRouter(string fileName, SemanticModel model)
         {
-            this.TransformersBag = new TransformersBag(fileName, model, this);
+            this.TransformersBag = new VisitorsBag(fileName, model, this);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace CsGls.Routing
         /// <param name="node"></param>
         /// <param name="range"></param>
         /// <returns></returns>
-        public ITransformation RouteNode(SyntaxNode node)
+        public ITransformation RecurseIntoNode(SyntaxNode node)
         {
             switch (node.Kind())
             {
@@ -66,7 +66,7 @@ namespace CsGls.Routing
             return Complaint.ForUnsupportedNode(node);
         }
 
-        public ITransformation RouteNodes(IEnumerable<SyntaxNode> nodes, SyntaxNode parent)
+        public ITransformation RecurseIntoNodes(IEnumerable<SyntaxNode> nodes, SyntaxNode parent)
         {
             var range = Range.ForNode(parent);
             var start = int.MaxValue;
@@ -75,10 +75,10 @@ namespace CsGls.Routing
 
             foreach (var node in nodes)
             {
-                var transformation = this.RouteNode(node);
+                var transformation = this.RecurseIntoNode(node);
                 start = Math.Min(start, transformation.Range.Start);
                 end = Math.Max(start, transformation.Range.End);
-                transformations.Add(this.RouteNode(node));
+                transformations.Add(this.RecurseIntoNode(node));
             }
 
             range = start == int.MaxValue

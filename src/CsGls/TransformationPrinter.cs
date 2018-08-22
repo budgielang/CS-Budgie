@@ -52,9 +52,9 @@ namespace CsGls
 
             foreach (var child in childTransformation.Children)
             {
-                if (child is CommandTransformation)
+                if (child is CommandTransformation childCommand)
                 {
-                    yield return child as CommandTransformation;
+                    yield return childCommand;
                 }
                 else
                 {

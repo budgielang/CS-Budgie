@@ -8,12 +8,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class WhileStatementTransformer : INodeTransformer<WhileStatementSyntax>
+    public class WhileStatementVisitor : INodeVisitor<WhileStatementSyntax>
     {
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public WhileStatementTransformer(SemanticModel model, TransformerRouter router)
+        public WhileStatementVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;
@@ -27,9 +27,9 @@ namespace CsGls.Transformers
                     new CommandTransformation(
                         CommandNames.WhileStart,
                         Range.ForNode(node.Condition),
-                        this.Router.RouteNode(node.Condition)
+                        this.Router.RecurseIntoNode(node.Condition)
                     ),
-                    this.Router.RouteNode(node.Statement),
+                    this.Router.RecurseIntoNode(node.Statement),
                     new CommandTransformation(
                         CommandNames.WhileEnd,
                         Range.AfterNode(node)

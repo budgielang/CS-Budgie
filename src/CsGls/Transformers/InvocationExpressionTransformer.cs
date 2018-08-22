@@ -7,12 +7,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class InvocationExpressionTransformer : INodeTransformer<InvocationExpressionSyntax>
+    public class InvocationExpressionVisitor : INodeVisitor<InvocationExpressionSyntax>
     {
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public InvocationExpressionTransformer(SemanticModel model, TransformerRouter router)
+        public InvocationExpressionVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;

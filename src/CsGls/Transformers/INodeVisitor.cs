@@ -7,7 +7,7 @@ namespace CsGls.Transformers
     /// Transforms a type of node to <see href="ITransformation" />s.
     /// </summary>
     /// <typeparam name="TNode">Type of <see href="SyntaxNode" /> to transform.</typeparam>
-    public interface INodeTransformer<TNode> where TNode : SyntaxNode 
+    public interface INodeVisitor<TNode> where TNode : SyntaxNode 
     {
         /// <summary>
         /// Transforms a node.

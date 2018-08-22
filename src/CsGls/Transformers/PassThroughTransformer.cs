@@ -7,12 +7,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class PassThroughTransformer : INodeTransformer<SyntaxNode>
+    public class PassThroughVisitor : INodeVisitor<SyntaxNode>
     {
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public PassThroughTransformer(SemanticModel model, TransformerRouter router)
+        public PassThroughVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;
@@ -20,7 +20,7 @@ namespace CsGls.Transformers
 
         public ITransformation VisitNode(SyntaxNode node)
         {
-            return this.Router.RouteNodes(node.ChildNodes(), node);
+            return this.Router.RecurseIntoNodes(node.ChildNodes(), node);
         }
     }
 }

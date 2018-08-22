@@ -8,12 +8,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class IfStatementTransformer : INodeTransformer<IfStatementSyntax>
+    public class IfStatementVisitor : INodeVisitor<IfStatementSyntax>
     {
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public IfStatementTransformer(SemanticModel model, TransformerRouter router)
+        public IfStatementVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;
@@ -25,7 +25,7 @@ namespace CsGls.Transformers
 
             if (node.Else != null)
             {
-                transformations.Add(this.Router.RouteNode(node.Else));
+                transformations.Add(this.Router.RecurseIntoNode(node.Else));
             }
 
             transformations.Add(new CommandTransformation(CommandNames.IfEnd, Range.AfterNode(node)));
@@ -36,8 +36,8 @@ namespace CsGls.Transformers
                     new CommandTransformation(
                         CommandNames.IfStart,
                         Range.ForNode(node.Condition),
-                        this.Router.RouteNode(node.Condition)),
-                    this.Router.RouteNode(node.Statement),
+                        this.Router.RecurseIntoNode(node.Condition)),
+                    this.Router.RecurseIntoNode(node.Statement),
                 },
                 Range.ForNode(node)
             );

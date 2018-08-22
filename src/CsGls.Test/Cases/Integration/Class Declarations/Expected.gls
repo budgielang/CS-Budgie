@@ -4,7 +4,7 @@ class end
 class start : Def extends Abc
 class end
 
-class start : Efg implements IHij
+class start : public Efg implements IHij
 class end
 
 class start : Klm extends Efg implements IHij
@@ -16,7 +16,7 @@ class end
 class start : abstract Nop extends Abc
 class end
 
-class start : abstract Qrs implements IHij
+class start : public abstract Qrs implements IHij
 class end
 
 class start : abstract Tuv extends Efg implements IHij

@@ -2,7 +2,7 @@ class Abc {}
 
 class Def : Abc { }
 
-class Efg : IHij {
+public class Efg : IHij {
 }
 
 class Klm : Efg, IHij {
@@ -12,6 +12,6 @@ abstract class Nop { }
 
 abstract class Qrs : Abc { }
 
-abstract class Tuv : IHij { }
+public abstract class Tuv : IHij { }
 
 abstract class Wxy : Efg, IHij { }

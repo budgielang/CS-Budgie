@@ -41,9 +41,8 @@ namespace CsGls.Results
 
         private string FormatParameters()
         {
-            // TODO: actually format these as per GlsLine.ts
             return string.Join(
-                " : ",
+                " ",
                 this.Parameters.Select(parameter => parameter.ToString()));
         }
     }

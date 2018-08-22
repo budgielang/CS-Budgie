@@ -31,10 +31,10 @@ namespace CsGls
             var router = CreateTransformerRouter(fileName, tree);
             var syntaxTree = (CompilationUnitSyntax)tree.GetRoot();
 
-            return router.RouteNodes(syntaxTree.ChildNodes(), syntaxTree);
+            return router.RecurseIntoNodes(syntaxTree.ChildNodes(), syntaxTree);
         }
 
-        private static TransformerRouter CreateTransformerRouter(string fileName, SyntaxTree syntaxTree)
+        private static NodeVisitRouter CreateTransformerRouter(string fileName, SyntaxTree syntaxTree)
         {
             var compilation = CSharpCompilation.Create(fileName)
                 .AddReferences(
@@ -42,7 +42,7 @@ namespace CsGls
                 .AddSyntaxTrees(syntaxTree);
             var model = compilation.GetSemanticModel(syntaxTree);
 
-            return new TransformerRouter(fileName, model);
+            return new NodeVisitRouter(fileName, model);
         }
     }
 }

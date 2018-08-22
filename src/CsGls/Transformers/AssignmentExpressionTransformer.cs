@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CsGls.Transformers
 {
-    public class AssignmentExpressionTransformer : INodeTransformer<AssignmentExpressionSyntax>
+    public class AssignmentExpressionVisitor : INodeVisitor<AssignmentExpressionSyntax>
     {
         private static Dictionary<SyntaxKind, string> OperationCommandNames { get; } = new Dictionary<SyntaxKind, string>
         {
@@ -20,9 +20,9 @@ namespace CsGls.Transformers
         };
 
         private readonly SemanticModel Model;
-        private readonly TransformerRouter Router;
+        private readonly NodeVisitRouter Router;
 
-        public AssignmentExpressionTransformer(SemanticModel model, TransformerRouter router)
+        public AssignmentExpressionVisitor(SemanticModel model, NodeVisitRouter router)
         {
             this.Model = model;
             this.Router = router;
@@ -40,9 +40,9 @@ namespace CsGls.Transformers
             return new ChildTransformations(
                 new ITransformation[]
                 {
-                    this.Router.RouteNode(node.Left),
+                    this.Router.RecurseIntoNode(node.Left),
                     new StringTransformation(OperationCommandNames[kind], Range.ForToken(node.OperatorToken)),
-                    this.Router.RouteNode(node.Right),
+                    this.Router.RecurseIntoNode(node.Right),
                 },
                 Range.ForNode(node)
             );
