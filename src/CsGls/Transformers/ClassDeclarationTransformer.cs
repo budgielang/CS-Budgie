@@ -54,7 +54,7 @@ namespace CsGls.Transformers
             {
                 if (modifier.Text == "public")
                 {
-                    transformations.Insert(0, new StringTransformation("export", Range.ForToken(modifier)));
+                    transformations.Insert(0, new StringTransformation("public", Range.ForToken(modifier)));
                 }
                 else if (modifier.Text == "abstract")
                 {
@@ -70,9 +70,22 @@ namespace CsGls.Transformers
             var transformations = new List<ITransformation>();
             var implements = new List<ITransformation>();
 
+            var declaredSymbol = this.Model.GetDeclaredSymbol(baseList.Parent);
+            var baseClassName = (declaredSymbol as INamedTypeSymbol)?.BaseType.Name;
+
             foreach (var baseType in baseList.Types)
             {
-                implements.Add(new StringTransformation(baseType.ToString(), Range.ForNode(baseType)));
+                // Case: extending from a class
+                if (baseType.ToString() == baseClassName)
+                {
+                    transformations.Add(new StringTransformation("extends", Range.ForToken(baseList.ColonToken)));
+                    transformations.Add(new StringTransformation(baseType.ToString(), Range.ForToken(baseList.ColonToken)));
+                }
+                // Case: extending from interface(s)
+                else
+                {
+                    implements.Add(new StringTransformation(baseType.ToString(), Range.ForNode(baseType)));
+                }
             }
 
             if (implements.Count != 0)

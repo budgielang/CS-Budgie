@@ -1,6 +1,8 @@
+interface IHij {}
+
 class Abc {}
 
-class Def : Abc { }
+class Def : Abc {}
 
 public class Efg : IHij {
 }
@@ -8,10 +10,10 @@ public class Efg : IHij {
 class Klm : Efg, IHij {
 }
 
-abstract class Nop { }
+abstract class Nop {}
 
-abstract class Qrs : Abc { }
+abstract class Qrs : Abc {}
 
-public abstract class Tuv : IHij { }
+public abstract class Tuv : IHij {}
 
-abstract class Wxy : Efg, IHij { }
+abstract class Wxy : Efg, IHij {}
